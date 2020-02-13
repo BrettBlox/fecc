@@ -1,0 +1,230 @@
+/**
+ * FONT FACE
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/Inter-Black.woff2') format('woff2');
+}
+
+/**
+ * VARIABLES
+ */
+:root {
+  --color-primary: #4c2982;
+  --color-secondary: #f9d170;
+  --color-bg: #f9f7f3;
+  --color-text: #252525;
+  --color-light: #f3f3f3;
+  --color-success: #067973;
+  --color-success-bg: #f5fffe;
+  --color-error: #b71540;
+  --color-error-bg: #fdeff3;
+  --color-shadow: rgba(23, 11, 41, 0.12);
+  --font-base-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    'Helvetica Neue', sans-serif;
+  --font-heading-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    'Helvetica Neue', sans-serif;
+  --metric-rhythm: 2rem;
+  --metric-gutter: 2rem;
+  --metric-box-padding: 1rem 1rem;
+  --metric-interaction-padding: 0.6rem 0.6rem;
+}
+
+/**
+ * GLOBAL STYLES
+ */
+body {
+  font-family: var(--font-base-family, sans-serif);
+  display: grid;
+  place-items: center;
+  //Because all of the content is a <main> element and the <body> has min-height: 100vh in the reset: using the CSS above vertically and horizontally centers the content.
+  background: var(--color-light);
+  color: var(--color-text);
+  padding: var(--metric-gutter, 2rem);
+}
+
+h1 {
+  font-family: var(--font-heading-family, sans-serif);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+label {
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+input[type],
+button {
+  border: none;
+  margin: 0;
+  font: inherit;
+  line-height: 1;
+  padding: 0.8rem;
+  padding: var(--metric-interaction-padding);
+  outline-offset: -1px;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  input[type],
+  button {
+    border: 1px solid;
+  }
+}
+
+/**
+ * GLOBAL FOCUS
+	I’ve just targeted all elements by using :focus as the selector. You could add a * if you want, too. This is a great way of setting solid, consistent focus styles across the board.
+*/
+:focus {
+  outline: 1px solid var(--color-primary);
+}
+
+/**
+ * FLOW UTILITY
+	This is a great way of adding space between sibling elements
+*/
+
+.flow {
+  --flow-space: var(--metric-rhythm);
+}
+
+.flow > * + * {
+  margin-top: 1em;
+  margin-top: var(--flow-space);
+}
+
+/**
+ * VISUALLY HIDDEN UTILITY
+
+	This does exactly what it says on the tin. It hides the element visually, but the content is still accessible to assistive technology like screen readers. 
+*/
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+/**
+ * SIGNUP COMPONENT
+
+	It’s pretty straightforward is this one. I’m setting a sensible max width which, if the user of the site hasn’t changed their base font size, will be about 320px wide. This also means that the .signup component will be 100% until it hits that max, which is great for mobile-first design.
+
+	The second bit sets the --flow-space for the .flow utility. One of my favourite features CSS Custom Properties is that they can be contextually overridden. This gives .flow so much power to be useful in this sort of context.
+ */
+.signup {
+  max-width: 20rem;
+}
+
+.signup__form + .signup__alert {
+  --flow-space: 1rem;
+}
+
+/**
+ * INLINE FIELD CONTROL COMPONENT
+	Again, you can see --flow-space being overridden. This time, we’re saying that this element—.inline-field-control—should only have 0.5rem of margin if it’s a sibling element. In our context, it means that there’s only 0.5rem of space between the <label> and our field.
+
+	We set the .inline-field-control component to be display: flex which forces our <input> and <button> to sit inline with each other. By setting .inline-field-control input to be flex: auto we’re saying: “Hey <input>, if there’s any space left on the horizontal axis, do us a solid and fill it up for us”. Handy, right?
+*/
+.inline-field-control {
+  --flow-space: 0.5rem;
+  display: flex;
+  box-shadow: 0 2px 10px var(--color-shadow);
+}
+
+.inline-field-control input {
+  flex: auto;
+}
+
+/**
+ * BUTTON COMPONENT
+	We tackled most of the style globally, so all we’re doing here is setting some specific styles and then adding a hover state. There’s also an optical adjustment where I’ve nudged the <svg> by 1px. 
+*/
+.button {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  font-size: 1.6rem;
+  min-width: 3.5rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  filter: brightness(1.05);
+}
+
+.button svg {
+  transform: translateY(1px); /* Optical adjustment */
+}
+
+/**
+ * ALERT COMPONENT
+	
+    - We’re using and then overriding Custom Properties using [data-state] hooks. This means that when the JavaScript sets a state, we can set the correct colours, without touching the actual CSS properties.
+    - The .alert__icon  element has flex-shrink: 0 that means if the container has run out of space, it can’t attempt to shrink that element. This is really useful for inline icons.
+    - Lastly, there’s this animation rule: slide-up 250ms ease. We haven’t set that yet so it’ll have no effect. CSS is awesome because regardless of what that animation does, this component still works without it. Proper progressive enhancement!
+
+ */
+.alert {
+  --alert-text: var(--color-text);
+  --alert-bg: var(--color-bg);
+
+  display: flex;
+  align-items: flex-start;
+  background: var(--alert-bg);
+  color: var(--alert-text);
+  border: 1px solid;
+  padding: var(--metric-box-padding);
+  margin-top: 1rem;
+  animation: slide-up 350ms ease;
+}
+
+.alert[data-state='error'] {
+  --alert-text: var(--color-error);
+  --alert-bg: var(--color-error-bg);
+}
+
+.alert[data-state='success'] {
+  --alert-text: var(--color-success);
+  --alert-bg: var(--color-success-bg);
+}
+
+.alert__icon {
+  font-size: 1.6em;
+  flex-shrink: 0;
+}
+
+.alert__content {
+  padding-left: 0.8rem;
+}
+
+.alert__content b {
+  display: block;
+}
+
+/**
+ * ANIMATIONS
+	Notice how I use an animation and not a transition for this. Yeh, we could use a transition, but it would mean tweaking states and using timeouts in JavaScript to make sure it isn’t janky when it get’s rendered in the DOM. Setting it as an animation means we can set it and wait until it’s rendered. Nice and simple!
+*/
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
