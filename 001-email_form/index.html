@@ -36,27 +36,46 @@
 
 </html>
 
-<!-- 
-INPUT NOTES
-	- autocapitalize="none" prevents the browser from capitalising the first letter of your email address. This is often a problem with iOS 				devices.
-	- autocorrect="off" prevents the browser from autocorrecting your spelling while you type. This can be incredibly frustrating for a user when 		they are inputting an email address or a search query.
-	- pattern="…" is the regular expression that the browser can test the user’s input with. By default, an email input type only looks for an @ 		 in the string, which isn’t good enough. The regular expression that we are using is simple, but more robust and will make sure that the 		     email is better formatted.
+
+<!-- INPUT NOTES
+- autocapitalize="none" prevents the browser from capitalising the first letter of your email address. This is often a
+problem with iOS devices.
+- autocorrect="off" prevents the browser from autocorrecting your spelling while you type. This can be incredibly
+frustrating for a user when they are inputting an email address or a search query.
+- pattern="…" is the regular expression that the browser can test the user’s input with. By default, an email input type
+only looks for an @ in the string, which isn’t good enough. The regular expression that we are using is simple, but more
+robust and will make sure that the email is better formatted.
 
 BUTTON NOTES
-	- We don’t need to add a type of submit because that’s a button’s default behaviour. Because we’ve added it inside a form element, it’ll 		 		 submit that form by default.
-	- autocorrect="off" prevents the browser from autocorrecting your spelling while you type. This can be incredibly frustrating for a user when 		they are inputting an email address or a search query.
-	- pattern="…" is the regular expression that the browser can test the user’s input with. By default, an email input type only looks for an @ 		 in the string, which isn’t good enough. The regular expression that we are using is simple, but more robust and will make sure that the 		     email is better formatted.
-	- We have added a class of .button to it which we will hook onto with our CSS, when it’s available. We could just style the button directly, 		 but often, some links will be made to look like buttons too, so this approach helps with that.
-	- Inside the button, we have two key elements. The visual design calls for this button to just have an arrow icon, but we have to provide 			better context for those who can’t see the elements. We use the sibling <span class="visually-hidden"> element to do that for us. This 		  		approach means that if there’s no CSS, the context is available wether you can see or not.
-	- SVG
-		The <svg> itself has a couple of important features. First of all, we hide it from assistive tech, using aria-hidden="true" and we prevent 		 it from being focused (IE, pre-Chromium Edge) by adding focusable="false". By setting both the width and height to 1em gives us two  					advantages:
+- We don’t need to add a type of submit because that’s a button’s default behaviour. Because we’ve added it inside a
+form element, it’ll submit that form by default.
+- autocorrect="off" prevents the browser from autocorrecting your spelling while you type. This can be incredibly
+frustrating for a user when they are inputting an email address or a search query.
+- pattern="…" is the regular expression that the browser can test the user’s input with. By default, an email input type
+only looks for an @ in the string, which isn’t good enough. The regular expression that we are using is simple, but more
+robust and will make sure that the email is better formatted.
+- We have added a class of .button to it which we will hook onto with our CSS, when it’s available. We could just style
+the button directly, but often, some links will be made to look like buttons too, so this approach helps with that.
+- Inside the button, we have two key elements. The visual design calls for this button to just have an arrow icon, but
+we have to provide better context for those who can’t see the elements.We use the sibling <span class="visually-hidden">
+element to do that for us. This approach means that if there’s no CSS, the context is available wether you can see
+or not.
 
-    1: When CSS isn’t available, the icons won’t take up the entire width of the viewport.
-    	 The icons can size themselves based on the font-size of their parent context. 
+- SVG The <svg> itself has a couple of important features. First of all, we hide it from assistive tech,
+using aria-hidden="true" and we prevent it from being focused (IE, pre-Chromium Edge) by adding focusable="false".
+By setting both the width and height to 1em gives us two advantages:
 
-	2: The last trick on the <svg> is setting the <path> fill to be currentColor. This means that it will inherit whatever the color value is 			 of its parent. You could apply this to the <svg>, if that’s what you prefer, too.
+    1: When CSS isn’t available, the icons won’t take up the entire width of the viewport. The icons can size themselves 
+    based on the font-size of their parent context.
+    2: The last trick on the <svg> is setting the <path> fill to be currentColor. This means that it will inherit
+    whatever the color value is of its parent. You could apply this to the <svg>, if that’s what you prefer, too.
 
 ALERT DIV NOTES
-	- This is the container for our feedback messages: both success and error states. We add role="alert" so a screen reader interrupts the user. 		This is useful when there is important information to convey, such as an invalid field error. If you have lots of errors on a form, don’t 		be tempted to use loads of different role="alert" elements, but instead, group errors into a single one. Lastly, we add aria-atomic="true" 		 so multiple invalid submissions or changes are announced. This is particularly a problem with VoiceOver for iOS.
-    - You’ll notice that the element is being left empty. This is very deliberate because although it’s tempting to present an error message on 		input or blur, it can actually be very confusing an overloading for someone with a cognitive impairment, so a safer, more inclusive 					approach is to validate when a user attempts to submit the form.
--->
+- This is the container for our feedback messages: both success and error states. We add role="alert" so a screen reader 
+interrupts the user. This is useful when there is important information to convey, such as an invalid field error. 
+If you have lots of errors on a form, don’t be tempted to use loads of different role="alert" elements, but instead, 
+group errors into a single one. Lastly, we add aria-atomic="true" so multiple invalid submissions or changes are 
+announced.This is particularly a problem with VoiceOver for iOS.
+- You’ll notice that the element is being left empty. This is very deliberate because although it’s tempting to present 
+an error message on input or blur, it can actually be very confusing an overloading for someone with a cognitive 
+impairment, so a safer, more inclusive approach is to validate when a user attempts to submit the form. -->
